@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng Ngày 20/10</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ffffff 0%, #ffe4e9 30%, #ffccd5 60%, #ffffff 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Hiệu ứng background động */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .bg-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(220, 20, 60, 0.15), transparent);
+            animation: floatParticle linear infinite;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Bông hoa background trang trí */
+        .bg-flower {
+            position: fixed;
+            opacity: 0.15;
+            animation: bgFlowerFloat linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes bgFlowerFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.15;
+            }
+            90% {
+                opacity: 0.15;
+            }
+            100% {
+                transform: translateY(-150px) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .bg-static-flower {
+            position: fixed;
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: 0;
+            animation: bgStaticFloat ease-in-out infinite;
+        }
+
+        @keyframes bgStaticFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(20px, -20px) rotate(10deg); }
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        /* Thiết kế thư hiện đại với glassmorphism */
+        .card {
+            position: relative;
+            width: 750px;
+            height: 450px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            box-shadow:
+                    0 8px 32px 0 rgba(220, 20, 60, 0.2),
+                    0 60px 120px rgba(220, 20, 60, 0.25),
+                    inset 0 0 0 1px rgba(220, 20, 60, 0.1);
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #dc143c, #ff0000, #dc143c, #ff0000);
+            background-size: 300% 300%;
+            border-radius: 30px;
+            z-index: -1;
+            animation: borderGlow 3s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .card:hover {
+            transform: translateY(-15px) rotateX(5deg);
+            box-shadow:
+                    0 8px 32px 0 rgba(220, 20, 60, 0.25),
+                    0 80px 160px rgba(220, 20, 60, 0.4);
+        }
+
+        /* Mặt trước với hiệu ứng 3D */
+        .card-front {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,245,247,0.9) 100%);
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: all 0.8s ease-out;
+        }
+
+        .card.opened .card-front {
+            opacity: 0;
+            transform: rotateY(180deg) scale(0.8);
+            pointer-events: none;
+        }
+
+        .card-front-content {
+            text-align: center;
+            position: relative;
+        }
+
+        .card-front-icon {
+            font-size: 100px;
+            margin-bottom: 30px;
+            animation: floatIcon 3s ease-in-out infinite, pulseGlow 2s ease-in-out infinite;
+            filter: drop-shadow(0 10px 25px rgba(220, 20, 60, 0.4));
+            position: relative;
+        }
+
+        .card-front-icon::after {
+            content: '💌';
+            position: absolute;
+            top: 0;
+            left: 0;
+            filter: blur(20px);
+            opacity: 0.6;
+            animation: iconGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(-5deg); }
+            75% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { filter: drop-shadow(0 10px 25px rgba(220, 20, 60, 0.4)); }
+            50% { filter: drop-shadow(0 15px 35px rgba(220, 20, 60, 0.7)); }
+        }
+
+        @keyframes iconGlow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+
+        .card-front-text {
+            font-size: 64px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #dc143c 0%, #ff0000 50%, #dc143c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            letter-spacing: 4px;
+            text-shadow: 0 0 30px rgba(220, 20, 60, 0.3);
+            animation: textShimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes textShimmer {
+            0%, 100% { filter: brightness(1) contrast(1); }
+            50% { filter: brightness(1.2) contrast(1.1); }
+        }
+
+        .card-front-hint {
+            font-size: 16px;
+            color: #dc143c;
+            animation: pulse 2s ease-in-out infinite;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 700;
+            position: relative;
+            padding: 12px 30px;
+            background: rgba(220, 20, 60, 0.08);
+            border-radius: 25px;
+            border: 2px solid rgba(220, 20, 60, 0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+        }
+
+        /* Nội dung thư với hiệu ứng xuất hiện mượt mà */
+        .card-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,245,247,0.95) 100%);
+            border-radius: 30px;
+            padding: 60px 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+            transition: all 0.8s ease-out 0.3s;
+        }
+
+        .card.opened .card-content {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        .card-content-header {
+            margin-bottom: 25px;
+            animation: slideInFromLeft 0.8s ease-out 0.5s both;
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .card-content-subtitle {
+            font-size: 14px;
+            color: #dc143c;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .card-content h1 {
+            font-size: 42px;
+            background: linear-gradient(135deg, #dc143c 0%, #ff0000 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .card-content-divider {
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, #dc143c, #ff0000);
+            margin-top: 15px;
+            border-radius: 2px;
+            animation: expandDivider 0.6s ease-out 0.8s both;
+        }
+
+        @keyframes expandDivider {
+            from { width: 0; }
+            to { width: 70px; }
+        }
+
+        .card-content-message {
+            margin-top: 30px;
+            flex: 1;
+        }
+
+        .card-content p {
+            font-size: 17px;
+            color: #444;
+            line-height: 2;
+            margin-bottom: 14px;
+            font-weight: 500;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .card-content p:nth-child(1) { animation-delay: 1s; }
+        .card-content p:nth-child(2) { animation-delay: 1.2s; }
+        .card-content p:nth-child(3) { animation-delay: 1.4s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-content .signature {
+            margin-top: 25px;
+            font-size: 15px;
+            background: linear-gradient(135deg, #dc143c, #ff0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-style: italic;
+            font-weight: 600;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out 1.6s both;
+        }
+
+        /* Hoa trang trí với hiệu ứng 3D */
+        .flower {
+            position: absolute;
+            opacity: 0;
+            animation: flowerAppear 1s ease-out 0.5s forwards;
+            filter: drop-shadow(0 10px 20px rgba(220, 20, 60, 0.3));
+        }
+
+        .flower.left {
+            left: -80px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .flower.right {
+            right: -80px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        @keyframes flowerAppear {
+            from {
+                opacity: 0;
+                transform: scale(0) translateY(-50%) rotate(-180deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(-50%) rotate(0deg);
+            }
+        }
+
+        .flower.left {
+            animation: flowerAppear 1s ease-out 0.5s forwards, floatLeft 5s ease-in-out 1.5s infinite;
+        }
+
+        .flower.right {
+            animation: flowerAppear 1s ease-out 0.5s forwards, floatRight 5s ease-in-out 1.5s infinite;
+        }
+
+        @keyframes floatLeft {
+            0%, 100% { transform: translateX(0) translateY(-50%) rotate(0deg); }
+            50% { transform: translateX(-50px) translateY(-100px) rotate(-15deg); }
+        }
+
+        @keyframes floatRight {
+            0%, 100% { transform: translateX(0) translateY(-50%) rotate(0deg); }
+            50% { transform: translateX(50px) translateY(-100px) rotate(15deg); }
+        }
+
+        .petal {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff0000 0%, #dc143c 50%, #c41e3a 100%);
+            border-radius: 50% 0;
+            opacity: 0.95;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+            animation: petalPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes petalPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .petal:nth-child(1) { transform: rotate(0deg) translateY(-65px); animation-delay: 0s; }
+        .petal:nth-child(2) { transform: rotate(72deg) translateY(-65px); animation-delay: 0.1s; }
+        .petal:nth-child(3) { transform: rotate(144deg) translateY(-65px); animation-delay: 0.2s; }
+        .petal:nth-child(4) { transform: rotate(216deg) translateY(-65px); animation-delay: 0.3s; }
+        .petal:nth-child(5) { transform: rotate(288deg) translateY(-65px); animation-delay: 0.4s; }
+
+        .center {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            background: radial-gradient(circle, #ffd700 0%, #ffed4e 100%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow:
+                    inset 0 -4px 8px rgba(0, 0, 0, 0.15),
+                    0 0 20px rgba(255, 215, 0, 0.6);
+            animation: centerGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes centerGlow {
+            0%, 100% { box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.15), 0 0 20px rgba(255, 215, 0, 0.6); }
+            50% { box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.15), 0 0 30px rgba(255, 215, 0, 0.9); }
+        }
+
+        /* Tuyết rơi cải tiến */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            font-size: 1.5em;
+            opacity: 0.6;
+            animation: snowfall linear infinite;
+            filter: drop-shadow(0 0 5px rgba(220, 20, 60, 0.5));
+        }
+
+        @keyframes snowfall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Pháo hoa nâng cao */
+        .firework-particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: explode 1.5s ease-out forwards;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        @keyframes explode {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0);
+            }
+        }
+
+        .falling-petal {
+            position: fixed;
+            pointer-events: none;
+            font-size: 28px;
+            animation: petalFall 3.5s ease-in forwards;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        @keyframes petalFall {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            pointer-events: none;
+            font-size: 24px;
+            animation: confettiFall 3.5s ease-in forwards;
+            filter: drop-shadow(0 0 8px currentColor);
+        }
+
+        @keyframes confettiFall {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotateZ(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotateZ(1080deg);
+            }
+        }
+
+        /* Hiệu ứng sóng khi click */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(220, 20, 60, 0.4);
+            transform: scale(0);
+            animation: ripple 0.6s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Sticker Tonton - Nằm TRONG bức thư */
+        .tonton-sticker {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            right: 30px;
+            bottom: 30px;
+            transform: scale(0) rotate(-180deg);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.5s;
+            filter: drop-shadow(0 5px 15px rgba(220, 20, 60, 0.2));
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .card.opened .tonton-sticker {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+            animation: tontonBounce 2.5s ease-in-out 1.3s infinite;
+        }
+
+        @keyframes tontonBounce {
+            0%, 100% {
+                transform: scale(1) rotate(0deg);
+            }
+            25% {
+                transform: scale(1.08) rotate(-3deg);
+            }
+            50% {
+                transform: scale(1.05) rotate(3deg);
+            }
+            75% {
+                transform: scale(1.08) rotate(-3deg);
+            }
+        }
+
+        .tonton-sticker img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+<div class="bg-animation" id="bgAnimation"></div>
+
+<div class="container">
+    <div class="card" id="card">
+        <div class="card-front">
+            <div class="card-front-content">
+                <div class="card-front-icon">💌</div>
+                <div class="card-front-text">20/10</div>
+                <div class="card-front-hint">✨ Nhấn để mở thư ✨</div>
+            </div>
+        </div>
+
+        <div class="card-content">
+            <div class="card-content-header">
+                <div class="card-content-subtitle">Chúc Mừng</div>
+                <h1>Ngày Phụ Nữ Việt Nam</h1>
+                <div class="card-content-divider"></div>
+            </div>
+
+            <div class="card-content-message">
+                <p>Nhân ngày 20 tháng 10, em chúc chị ruột em 1 ngày thật là vui vẻ 🌸</p>
+                <p>Chúc chị luôn luôn vui vẻ, xinh đẹp, khỏe mạnh và hạnh phúc ạ  💖</p>
+                <p>Mãi mãi rạng rỡ như những đóa hoa xinh đẹp ạ 🌺</p>
+                <div class="signature">✨ Em trai rọt Nguyên :V  ✨</div>
+            </div>
+        </div>
+
+        <!-- Sticker Tonton - Thay đổi src thành đường dẫn ảnh của bạn -->
+        <div class="tonton-sticker">
+            <img src="tonton.gif" alt="Tonton Sticker" onerror="this.style.display='none'">
+        </div>
+    </div>
+
+    <div class="flower left">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+    </div>
+
+    <div class="flower right">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+    </div>
+</div>
+
+<script>
+    const card = document.getElementById('card');
+    let isOpened = false;
+
+    // Tạo background particles
+    function createBgParticles() {
+        const bgAnimation = document.getElementById('bgAnimation');
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('bg-particle');
+            particle.style.width = Math.random() * 100 + 50 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = Math.random() * 10 + 15 + 's';
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            bgAnimation.appendChild(particle);
+        }
+    }
+    createBgParticles();
+
+    // Tạo bông hoa nền tĩnh
+    function createStaticFlowers() {
+        const flowers = ['🌹', '🌺', '🌸', '🌼', '🌻', '💐', '🏵️'];
+        const positions = [
+            {left: '5%', top: '10%', size: 80},
+            {left: '92%', top: '15%', size: 60},
+            {left: '10%', top: '80%', size: 70},
+            {left: '88%', top: '75%', size: 90},
+            {left: '15%', top: '45%', size: 50},
+            {left: '85%', top: '50%', size: 55},
+            {left: '8%', top: '60%', size: 65},
+            {left: '90%', top: '40%', size: 75}
+        ];
+
+        positions.forEach((pos, index) => {
+            const flower = document.createElement('div');
+            flower.classList.add('bg-static-flower');
+            flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+            flower.style.left = pos.left;
+            flower.style.top = pos.top;
+            flower.style.fontSize = pos.size + 'px';
+            flower.style.animationDuration = (5 + Math.random() * 3) + 's';
+            flower.style.animationDelay = (index * 0.3) + 's';
+            document.body.appendChild(flower);
+        });
+    }
+    createStaticFlowers();
+
+    // Tạo bông hoa bay
+    function createFloatingFlower() {
+        const flowers = ['🌹', '🌺', '🌸', '🌼', '🌻', '💐', '🏵️'];
+        const flower = document.createElement('div');
+        flower.classList.add('bg-flower');
+        flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+        flower.style.left = Math.random() * 100 + '%';
+        flower.style.fontSize = (Math.random() * 40 + 40) + 'px';
+        flower.style.animationDuration = (Math.random() * 8 + 12) + 's';
+        document.body.appendChild(flower);
+
+        setTimeout(() => flower.remove(), 20000);
+    }
+
+    setInterval(createFloatingFlower, 2000);
+
+    // Hiệu ứng ripple khi click
+    card.addEventListener('click', function(e) {
+        const ripple = document.createElement('div');
+        ripple.classList.add('ripple');
+        const rect = card.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = e.clientX - rect.left - size / 2 + 'px';
+        ripple.style.top = e.clientY - rect.top - size / 2 + 'px';
+        card.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+
+        card.classList.toggle('opened');
+        isOpened = !isOpened;
+
+        if (isOpened) {
+            createFireworks();
+            createFallingPetals();
+            createConfetti();
+        }
+    });
+
+    function createFireworks() {
+        const cardRect = card.getBoundingClientRect();
+        const centerX = cardRect.left + cardRect.width / 2;
+        const centerY = cardRect.top + cardRect.height / 2;
+
+        const colors = ['#dc143c', '#ff0000', '#c41e3a', '#8b0000', '#ff6b6b'];
+
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                for (let j = 0; j < 40; j++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('firework-particle');
+
+                    const angle = (j / 40) * Math.PI * 2;
+                    const velocity = 10 + Math.random() * 6;
+                    const tx = Math.cos(angle) * velocity * 120;
+                    const ty = Math.sin(angle) * velocity * 120;
+
+                    particle.style.left = centerX + 'px';
+                    particle.style.top = centerY + 'px';
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.backgroundColor = color;
+                    particle.style.color = color;
+                    particle.style.setProperty('--tx', tx + 'px');
+                    particle.style.setProperty('--ty', ty + 'px');
+
+                    document.body.appendChild(particle);
+                    setTimeout(() => particle.remove(), 1500);
+                }
+            }, i * 250);
+        }
+    }
+
+    function createFallingPetals() {
+        const petals = ['🌸', '🌺', '🌼', '🌻', '🌷', '🌹', '💐', '🏵️'];
+
+        for (let i = 0; i < 25; i++) {
+            setTimeout(() => {
+                const petal = document.createElement('div');
+                petal.classList.add('falling-petal');
+                petal.textContent = petals[Math.floor(Math.random() * petals.length)];
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.top = '-50px';
+                petal.style.animationDuration = (2.5 + Math.random() * 2) + 's';
+                petal.style.animationDelay = Math.random() * 0.5 + 's';
+
+                document.body.appendChild(petal);
+                setTimeout(() => petal.remove(), 5000);
+            }, i * 120);
+        }
+    }
+
+    function createConfetti() {
+        const confettiPieces = ['🎉', '🎊', '💝', '✨', '💕', '💖', '⭐', '🌟', '💫'];
+
+        for (let i = 0; i < 30; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.textContent = confettiPieces[Math.floor(Math.random() * confettiPieces.length)];
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.top = '-50px';
+            confetti.style.animationDuration = (2.5 + Math.random() * 1.5) + 's';
+            confetti.style.animationDelay = Math.random() * 0.3 + 's';
+
+            document.body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 4500);
+        }
+    }
+
+    function createSnowflake() {
+        const snowflake = document.createElement('div');
+        snowflake.classList.add('snowflake');
+        const symbols = ['❤️', '🌹', '💝', '✨'];
+        snowflake.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        snowflake.style.left = Math.random() * 100 + '%';
+        snowflake.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        snowflake.style.animationDelay = Math.random() * 2 + 's';
+
+        document.body.appendChild(snowflake);
+        setTimeout(() => snowflake.remove(), 6000);
+    }
+
+    setInterval(createSnowflake, 250);
+
+    // Làm GIF sticker chạy liên tục
+    const tontonImg = document.querySelector('.tonton-sticker img');
+    if (tontonImg) {
+        setInterval(() => {
+            const src = tontonImg.src;
+            tontonImg.src = '';
+            tontonImg.src = src;
+        }, 5000); // Reload GIF mỗi 5 giây để giữ animation
+    }
+</script>
+</body>
+</html>
